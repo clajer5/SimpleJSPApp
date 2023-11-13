@@ -1,1 +1,1 @@
-ARTIFACT_DIR=WebContent
+JAVA_MAIN_CLASS=SimpleServlet
