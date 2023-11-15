@@ -21,8 +21,21 @@
         ResultSet rs = null;
 
         try {
-            Class.forName("com.mysql.cj.jdbc.Driver"); // Reemplazar "nombre_del_driver" con el nombre del driver de tu base de datos
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/simplejspdb", "root", ""); // Reemplazar con la URL de conexión, usuario y contraseña de tu base de datos
+        	// CONFIGURACION OPENSHIFT
+        	String dbHost = System.getenv("DB_HOST");
+            String dbPort = System.getenv("DB_PORT");
+            String dbName = System.getenv("DB_NAME");
+            String dbUser = System.getenv("DB_USER");
+            String dbPassword = System.getenv("DB_PASSWORD");
+
+            // Construir la URL de conexión JDBC
+            String dbUrl = "jdbc:mysql://" + dbHost + ":" + dbPort + "/" + dbName;
+
+            // Establecer la conexión con la base de datos
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            conn = DriverManager.getConnection(dbUrl, dbUser, dbPassword);
+            //Class.forName("com.mysql.cj.jdbc.Driver"); // Reemplazar "nombre_del_driver" con el nombre del driver de tu base de datos
+            //conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/simplejspdb", "root", ""); // Reemplazar con la URL de conexión, usuario y contraseña de tu base de datos
 
             stmt = conn.createStatement();
             rs = stmt.executeQuery("SELECT * FROM usuarios");
